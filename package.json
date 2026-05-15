@@ -1,0 +1,15 @@
+{
+  "name": "great-battle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-based multiplayer Marvel card game — Race 01",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "build": "npm run build --prefix client",
+    "lint": "npm run lint --prefix client && npm run lint --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
