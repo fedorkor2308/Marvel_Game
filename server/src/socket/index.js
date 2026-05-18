@@ -3,12 +3,7 @@ import jwt from 'jsonwebtoken';
 import { registerMatchmaking } from './matchmaking.js';
 import { registerGameHandlers } from './gameHandlers.js';
 import { registerRoomHandlers }  from './roomHandlers.js';
-
-/** Active games: gameId → GameEngine instance */
-export const activeGames = new Map();
-
-/** socket.id → userId (for reconnect) */
-export const socketUsers = new Map();
+import { userSockets, playerToGame, gameToRoom } from './state.js';
 
 export function initSocket(server) {
   const io = new Server(server, {
@@ -30,7 +25,7 @@ export function initSocket(server) {
   });
 
   io.on('connection', (socket) => {
-    socketUsers.set(socket.id, socket.user.id);
+    userSockets.set(String(socket.user.id), socket);
     console.log(`[socket] connected: ${socket.user.username} (${socket.id})`);
 
     registerRoomHandlers(io, socket);
@@ -38,8 +33,15 @@ export function initSocket(server) {
     registerGameHandlers(io, socket);
 
     socket.on('disconnect', () => {
-      socketUsers.delete(socket.id);
+      userSockets.delete(String(socket.user.id));
       console.log(`[socket] disconnected: ${socket.id}`);
+
+      // Notify the game room so the opponent sees the disconnect banner
+      const gameId = playerToGame.get(String(socket.user.id));
+      if (gameId) {
+        const roomName = gameToRoom.get(gameId);
+        if (roomName) io.to(roomName).emit('player:disconnect');
+      }
     });
   });
 

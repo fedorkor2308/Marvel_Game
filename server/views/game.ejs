@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battle — MARVEL CARDS</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- Coin flip overlay -->
+<div id="coin-overlay">
+  <div style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.2em;">Who Goes First?</div>
+  <div class="coin-circle spinning" id="coin-circle"><span>TOSS</span></div>
+  <div class="coin-result" id="coin-result" style="display:none;"></div>
+  <button class="btn-primary" id="coin-proceed" style="display:none;width:200px;">PROCEED TO BATTLE →</button>
+</div>
+
+<!-- Game end overlay -->
+<div id="game-end-overlay">
+  <div class="end-box">
+    <div class="end-result" id="end-result"></div>
+    <div class="end-winner" id="end-winner"></div>
+    <button class="btn-primary" onclick="location.href='/lobby'" style="width:200px;">RETURN TO LOBBY</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<div id="game-wrap">
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="logo">MARVEL CARDS</div>
+    <div class="sidebar-player">
+      <div class="pname" id="sb-name"></div>
+      <div class="turn-status" id="sb-turn">WAITING...</div>
+    </div>
+    <div id="disconnect-notice" style="display:none;padding:.75rem 1rem;border-bottom:1px solid var(--border);font-size:.6rem;color:var(--primary);text-transform:uppercase;letter-spacing:.1em;animation:pulse 1.5s infinite;">⚠ OPPONENT DISCONNECTED</div>
+    <div class="sidebar-turn" id="sb-turn-num">Turn 1 / 30</div>
+    <div class="sidebar-cards" id="my-cards-left">6 cards left</div>
+  </div>
+
+  <!-- Battlefield -->
+  <div id="battlefield">
+    <div id="your-turn-watermark" style="display:none;"><span>YOUR TURN</span></div>
+
+    <!-- Opponent area -->
+    <div id="opp-area">
+      <div class="hud" id="opp-hud">
+        <div class="hud-info">
+          <div class="hud-avatar"><span style="font-size:.55rem;color:var(--text-muted);">OPP</span></div>
+          <div>
+            <div class="hud-name" id="opp-name">---</div>
+            <div class="hud-hp">♥ <span id="opp-hp">20</span>/20</div>
+            <div class="mana-box" style="margin-top:.3rem;">◇ <span id="opp-mana">0</span>/<span id="opp-max-mana">0</span> MANA</div>
+          </div>
+        </div>
+      </div>
+      <div class="board" id="opp-board"></div>
+    </div>
+
+    <!-- Timer -->
+    <div id="timer-bar">
+      <span class="t-label">TURN TIMER</span>
+      <span class="t-val" id="timer-val">30</span>
+      <span class="t-label">SEC</span>
+    </div>
+
+    <!-- My area -->
+    <div id="my-area">
+      <div class="board" id="my-board"></div>
+
+      <div class="hand-wrap" id="my-hand"></div>
+
+      <div id="actions-bar">
+        <button id="attack-hero-btn">⚔ ATTACK HERO</button>
+        <div class="hud-info">
+          <div class="hud-avatar"><span style="font-size:.55rem;color:var(--text-muted);">YOU</span></div>
+          <div>
+            <div class="hud-name" id="my-name">---</div>
+            <div class="hud-hp">♥ <span id="my-hp">20</span>/20</div>
+            <div class="mana-box" style="margin-top:.3rem;">◇ <span id="my-mana">0</span>/<span id="my-max-mana">0</span> MANA</div>
+          </div>
+        </div>
+        <button id="end-turn-btn">END TURN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/game.js"></script>
+<script>
+  initGame();
+</script>
+</body>
+</html>

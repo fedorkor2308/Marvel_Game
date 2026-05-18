@@ -1,5 +1,6 @@
 {
   "name": "great-battle",
+  "type": "module",
   "version": "1.0.0",
   "private": true,
   "description": "Browser-based multiplayer Marvel card game — Race 01",

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — MARVEL CARDS</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-box">
+    <div class="auth-title">CREATE ACCOUNT</div>
+    <div class="error-msg" id="err"></div>
+    <label>Username</label>
+    <input type="text" id="username" placeholder="IronMan99" maxlength="20">
+    <label>Email</label>
+    <input type="email" id="email" placeholder="agent@shield.com">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="min 6 characters">
+    <button class="btn-primary" id="reg-btn">CREATE ACCOUNT</button>
+    <button class="btn-secondary" onclick="location.href='/login'">BACK TO LOGIN</button>
+  </div>
+</div>
+<script src="/js/auth.js"></script>
+<script>
+  initRegister();
+</script>
+</body>
+</html>

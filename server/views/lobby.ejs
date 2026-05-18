@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lobby — MARVEL CARDS</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="lobby-header">
+  <div class="logo">MARVEL CARDS</div>
+  <nav class="nav-links">
+    <span id="opr-name" style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.15em;"></span>
+    <a href="/leaderboard">LEADERBOARD</a>
+    <button id="logout-btn">LOGOUT</button>
+  </nav>
+</header>
+
+<div class="lobby-main">
+  <div class="status-bar" id="status-bar"></div>
+
+  <div class="lobby-grid">
+    <!-- Create room -->
+    <div class="room-card">
+      <div class="room-label">Private Room</div>
+      <div class="room-title">Create Room</div>
+      <div id="create-idle">
+        <button class="btn-primary" id="create-btn">CREATE ROOM</button>
+      </div>
+      <div id="create-waiting" style="display:none;">
+        <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.4rem;">Share this code:</div>
+        <div class="room-code-display" id="room-code-display"></div>
+        <div style="font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.15em;animation:pulse 1.5s infinite;">Waiting for opponent...</div>
+      </div>
+    </div>
+
+    <!-- Join room -->
+    <div class="room-card">
+      <div class="room-label">Join Room</div>
+      <div class="room-title">Enter Code</div>
+      <input type="text" id="join-code" placeholder="XXXXXX" maxlength="6">
+      <button class="btn-primary" id="join-btn">JOIN ROOM</button>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/lobby.js"></script>
+<script>
+  initLobby();
+</script>
+</body>
+</html>
