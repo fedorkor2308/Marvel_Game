@@ -13,10 +13,9 @@ export async function register(req, res, next) {
     if (existing.length) return res.status(409).json({ error: 'Username or email already taken' });
 
     const hash = await bcrypt.hash(password, 12);
-    const [result] = await query(
-      'INSERT INTO users (username, email, password_hash, avatar_url) VALUES (?, ?, ?, ?)',
-      [username, email, hash, `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`]
-    );
+    const result = await query(
+    'INSERT INTO users (username, email, password_hash, avatar_url) VALUES (?, ?, ?, ?)',
+    [username, email, hash, `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`]);
 
     const payload = { id: result.insertId, username };
     res.status(201).json({

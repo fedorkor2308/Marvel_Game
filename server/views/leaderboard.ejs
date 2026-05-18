@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaderboard — MARVEL CARDS</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="lobby-header">
+  <div class="logo">MARVEL CARDS</div>
+  <nav class="nav-links">
+    <a href="/lobby">← LOBBY</a>
+    <button id="logout-btn">LOGOUT</button>
+  </nav>
+</header>
+
+<div class="lb-wrap">
+  <div class="lb-title">LEADERBOARD</div>
+  <table class="lb-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>OPERATOR</th>
+        <th>WINS</th>
+        <th>LOSSES</th>
+        <th>WIN %</th>
+      </tr>
+    </thead>
+    <tbody id="lb-body">
+      <tr><td colspan="5" style="color:var(--text-dim);font-size:.65rem;padding:1rem .75rem;">LOADING...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="/js/auth.js"></script>
+<script src="/js/leaderboard.js"></script>
+<script>
+  initLeaderboard();
+</script>
+</body>
+</html>
