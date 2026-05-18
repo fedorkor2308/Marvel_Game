@@ -66,7 +66,8 @@ export class GameEngine {
     const player = this._currentPlayer();
     player.maxMana = Math.min(player.maxMana + 1, GAME.MAX_MANA);
     player.mana    = player.maxMana;
-    this._drawCard(player.id);
+    // Skip the draw on turn 1 so both players start with the same hand size
+    if (this.turn > 1) this._drawCard(player.id);
     player.board.forEach(c => { c.exhausted = false; });
     this.phase = TURN_PHASE.MAIN;
     return this.publicState();
