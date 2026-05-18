@@ -185,8 +185,8 @@ export function registerGameHandlers(io, socket) {
     socket.emit('player:identity', { myPlayerId: socket.user.id });
     socket.emit(E.GAME_STATE, engine.publicState());
     socket.emit(E.PLAYER_HAND, engine.privateHand(socket.user.id));
-    // Let opponent know this player is back
-    io.to(roomName).emit('player:reconnect');
+    // Let opponent know this player is back (exclude self)
+    socket.to(roomName).emit('player:reconnect');
   });
 }
 

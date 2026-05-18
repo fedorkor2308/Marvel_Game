@@ -135,6 +135,12 @@ export class GameEngine {
         return { ok: false, error: 'Must attack a taunt minion first' };
     }
 
+    // Validate target exists BEFORE exhausting the attacker
+    if (targetId !== 'hero') {
+      const targetExists = opponent.board.find(c => c.instanceId === targetId);
+      if (!targetExists) return { ok: false, error: 'Target not found' };
+    }
+
     attacker.exhausted = true;
 
     if (targetId === 'hero') {
@@ -145,7 +151,6 @@ export class GameEngine {
         player.health = Math.min(GAME.INITIAL_HEALTH, player.health + dmg);
     } else {
       const target = opponent.board.find(c => c.instanceId === targetId);
-      if (!target) return { ok: false, error: 'Target not found' };
 
       target.currentDef   -= attacker.currentAtk;
       attacker.currentDef -= target.currentAtk;

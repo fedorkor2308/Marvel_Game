@@ -49,6 +49,8 @@ function initGame() {
       coinResult.className = 'coin-result ' + (iGoFirst ? 'you' : 'opp');
       coinResult.style.display = 'block';
       coinProceed.style.display = 'block';
+    // Auto-dismiss after 4 s so turn timer doesn't expire while coin is showing
+    setTimeout(() => { coinOverlay.style.display = 'none'; }, 4000);
     }, 2000);
     coinProceed.addEventListener('click', () => {
       coinOverlay.style.display = 'none';
@@ -164,6 +166,16 @@ function initGame() {
   function renderState() {
     if (!gameState) return;
     isMyTurn = String(gameState.currentPlayerId) === String(myId);
+
+    // Clear stale attacker selection if the card was destroyed
+    if (selectedAtk) {
+      const me = gameState.players[myId] || {};
+      const stillOnBoard = (me.board || []).some(c => c.instanceId === selectedAtk);
+      if (!stillOnBoard) {
+        selectedAtk = null;
+        atkHeroBtn.style.display = 'none';
+      }
+    }
 
     const oppId = _oppId();
     const me    = gameState.players[myId]  || {};
