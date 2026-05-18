@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS cards (
   rarity      ENUM('common','rare','epic','legendary') NOT NULL DEFAULT 'common',
   faction     ENUM('hero','villain','neutral')         NOT NULL DEFAULT 'neutral',
   ability     VARCHAR(100)    NULL,      -- e.g. 'taunt', 'lifesteal', 'charge'
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_cards_name (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ─── Rooms ──────────────────────────────────────────────────
