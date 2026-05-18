@@ -33,10 +33,15 @@ export function initSocket(server) {
     registerGameHandlers(io, socket);
 
     socket.on('disconnect', () => {
-      userSockets.delete(String(socket.user.id));
       console.log(`[socket] disconnected: ${socket.id}`);
 
-      // Notify the game room so the opponent sees the disconnect banner
+      // Only act if this is still the active socket for this user.
+      // If the player navigated (lobby → game), the game socket already
+      // replaced this one in userSockets — don't delete it or fire disconnect.
+      if (userSockets.get(String(socket.user.id)) !== socket) return;
+
+      userSockets.delete(String(socket.user.id));
+
       const gameId = playerToGame.get(String(socket.user.id));
       if (gameId) {
         const roomName = gameToRoom.get(gameId);
